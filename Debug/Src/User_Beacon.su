@@ -1,0 +1,5 @@
+User_Beacon.c:37:6:Check_Response_1	8	static
+User_Beacon.c:55:6:Check_Get_Response	8	static
+User_Beacon.c:90:6:Send_BLE_Commands	16	static
+User_Beacon.c:907:6:Check_Device_Connection	24	static
+User_Beacon.c:994:6:Send_BLE_Beacons_Commands	16	static

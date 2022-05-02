@@ -1,0 +1,40 @@
+/*
+ * User_BLE.h
+ *
+ *  Created on: 22-Sep-2018
+ *      Author: Radhika
+ */
+
+#ifndef USER_BLE_H_
+#define USER_BLE_H_
+
+
+
+#endif /* USER_BLE_H_ */
+extern void BLE_Application();
+extern void Send_BLE_Command(unsigned char *strptr, unsigned int length);
+extern void BLE_Module_Init(void);
+extern unsigned char BLE_Key_Status;
+extern unsigned char BLE_NO_of_Received_Bytes;
+
+typedef enum{
+
+    /* TODO: Define states used by the application state machine. */
+        COMMAND_MODE=1,
+		DATA_MODE,
+		START_ADVERTISING,
+		POWER_SAVING,
+}BLE_INIT_STATES;
+typedef struct {
+    /* The application's current state */
+BLE_INIT_STATES state;
+
+    /* TODO: Define any additional data used by the application. */
+
+} BLE_INIT_DATA;
+
+extern BLE_INIT_DATA initBLE;
+
+extern unsigned char Check_Response_Of_BLE_Command;
+extern unsigned int BLE_Timeout_Counter;
+extern unsigned char BLE_OFF_Counter;

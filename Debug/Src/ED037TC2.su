@@ -1,0 +1,17 @@
+ED037TC2.c:17:6:check_busy_high	8	static
+ED037TC2.c:31:6:check_busy_low	8	static
+ED037TC2.c:53:6:spi_9b_init	8	static
+ED037TC2.c:316:6:spi_9b_send	16	static
+ED037TC2.c:295:6:spi_9b_send_9b	8	static
+ED037TC2.c:69:5:EPD_Init	8	static
+ED037TC2.c:181:6:EPD_Load_LUTC	16	static
+ED037TC2.c:192:6:EPD_Load_LUT	16	static
+ED037TC2.c:202:6:Upload_Temperature_LUT	8	static
+ED037TC2.c:219:6:EPD_Display_White	8	static
+ED037TC2.c:254:6:EPD_Display_Black1	8	static
+ED037TC2.c:349:6:EPD_Display_KW	16	static
+ED037TC2.c:385:6:EPD_Display_KW1	16	static
+ED037TC2.c:421:6:EPD_Display_KW1_Dummy	8	static
+ED037TC2.c:469:5:Eink_Partial_Display_Update	56	static
+ED037TC2.c:550:5:Eink_Partial_Display_Refresh	56	static
+ED037TC2.c:603:6:EPD_Partial_white_Display_KW	8	static

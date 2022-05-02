@@ -1,0 +1,31 @@
+/*
+ * Global.h
+ *
+ *  Created on: Oct 5, 2020
+ *      Author: bhakti.deshpande
+ */
+
+#ifndef GLOBAL_H_
+#define GLOBAL_H_
+
+
+#define	START_BYTE 			 	0xA0
+#define END_BYTE 			 	0x0A
+
+#define UART_1_TX_Buffer_Size  100
+#define UART_1_RX_Buffer_Size  100
+
+#define MAX_IMG_SIZE 16800
+
+
+
+
+
+
+
+
+
+
+
+
+#endif /* GLOBAL_H_ */

@@ -1,0 +1,3 @@
+User_ADC.c:40:14:Get_ADC_Average_Single	16	static
+User_ADC.c:63:6:Get_ADC_Value_Converted	8	static
+User_ADC.c:82:5:ADC_Sensing_Operation	64	static

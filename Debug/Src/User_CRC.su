@@ -1,0 +1,6 @@
+User_CRC.c:53:15:ByteNibble	0	static
+User_CRC.c:62:16:Convert_To_Int	16	static
+User_CRC.c:70:6:AscNibble	0	static
+User_CRC.c:80:6:Convert_To_Hex	16	static
+User_CRC.c:87:6:Calculate_Byte_CRC16	0	static
+User_CRC.c:117:20:Calculate_Block_CRC16	16	static

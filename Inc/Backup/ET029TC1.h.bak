@@ -1,0 +1,127 @@
+ #ifndef __ET029TC1_H__
+#define __ET029TC1_H__
+
+#include "main.h"
+#include "stm32l0xx_hal.h"
+
+/*
+*********************************
+Constant set
+**********************************/
+#define PFS         0x0003
+#define CMD         0xF8
+#define OSC         0x0030
+#define OSC_V	    0x003C
+
+#define PSR         0x00   
+#define PSR_V       0x6F
+
+#define PWR_EPD     0x01
+#define PWR_V1      0x03
+#define PWR_V2      0x00//0x07
+#define PWR_V3      0x3F//0x0D
+#define PWR_V4      0x3F//0x0D
+#define PWR_V5      0x0F//0x00
+
+#define POF         0x02
+#define PON         0x04
+
+#define DTM1        0x10  
+#define DTM2        0x13   
+
+#define DSP         0x11
+#define DRF         0x12
+#define PLL_M       0x30     
+#define PLL_V       0x2A
+
+#define TSC_EPD     0x40
+#define TSE         0x41
+#define TSE_V       0x00
+#define CDI         0x50
+#define CDI_V       0x37
+#define TCON        0x60
+#define TCON_V      0x04
+#define TRES        0x61
+
+#define SET_STG     0x26
+#define SET_STG_V     0x0F
+
+#define AMV     0x80
+#define AMV_V     0x11
+#define VV          0x82
+
+
+#define TSGS        0x0062
+#define TSGS_V1        0x00
+#define TSGS_V2        0x00
+#define TSGS_V3        0x00
+#define TSGS_V4        0x00
+//   2"
+#define TRES_V1     0x01
+#define TRES_V2     0x18
+#define TRES_V3     0x01
+#define TRES_V4     0xE0
+
+#define VDCS        0x82
+#define VDCS_V      0x0C // -0.8V
+
+#define BTST      	0x06       
+#define BTST_V1   	0x57
+#define BTST_V2   	0x63
+#define BTST_V3   	0x31
+
+// EPD1- Pins Macros
+//#define BUSYN  HAL_GPIO_ReadPin(ePD1_BUSY_GPIO_Port,ePD1_BUSY_Pin)
+//#define RSTN_L HAL_GPIO_WritePin(ePD1_RESET_GPIO_Port,ePD1_RESET_Pin,0)
+//#define RSTN_H HAL_GPIO_WritePin(ePD1_RESET_GPIO_Port,ePD1_RESET_Pin,1)
+//#define DC_L   HAL_GPIO_WritePin(ePD1_D_C_GPIO_Port,ePD1_D_C_Pin,0)
+//#define DC_H   HAL_GPIO_WritePin(ePD1_D_C_GPIO_Port,ePD1_D_C_Pin,1)
+//#define CSB_H  HAL_GPIO_WritePin(ePD1_CS_GPIO_Port,ePD1_CS_Pin,1)
+//#define CSB_L  HAL_GPIO_WritePin(ePD1_CS_GPIO_Port,ePD1_CS_Pin,0)
+// EPD1- Pins Macros
+
+
+// EPD2- Pins Macros
+#define BUSY2N  HAL_GPIO_ReadPin(ePD2_BUSY_GPIO_Port,ePD2_BUSY_Pin)
+#define RSTN2_L HAL_GPIO_WritePin(ePD2_RESET_GPIO_Port,ePD2_RESET_Pin,0)
+#define RSTN2_H HAL_GPIO_WritePin(ePD2_RESET_GPIO_Port,ePD2_RESET_Pin,1)
+#define DC2_L   HAL_GPIO_WritePin(ePD2_D_C_GPIO_Port,ePD2_D_C_Pin,0)
+#define DC2_H   HAL_GPIO_WritePin(ePD2_D_C_GPIO_Port,ePD2_D_C_Pin,1)
+#define CSB2_H  HAL_GPIO_WritePin(ePD2_CS_GPIO_Port,ePD2_CS_Pin,1)
+#define CSB2_L  HAL_GPIO_WritePin(ePD2_CS_GPIO_Port,ePD2_CS_Pin,0)
+
+
+
+// EPD2- Pins Macros
+
+//EPD1 Functions
+void check_busy_high(void);
+void check_busy_low(void);
+void EPD_Init(void);
+void EPD_Init2(void);
+void EPD_Display_KW(const unsigned char *img_kw, unsigned int size);
+void EPD_Load_Display_Data(unsigned char const *Value);
+void EPD_Display_White(void);
+void EPD_Display_Black(void);
+void EPD_RF(void);
+void EPD_Disp(void);
+//EPD1 Functions
+
+//EPD2 Functions
+void check_busy_high2(void);
+void check_busy_low2(void);
+void EPD2_Init(void);
+void EPD2_Display_KW(unsigned char const *img_kw,unsigned int size);
+void EPD2_Load_Display_Data(unsigned char const *Value);
+void EPD2_Display_White(void);
+void EPD2_Display_Black(void);
+//EPD2 Functions
+
+#define MAX_IMG_SIZE 6785//7294//7500
+
+
+#endif //#ifndef __ET029TC1_H__
+
+
+
+

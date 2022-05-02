@@ -1,0 +1,2 @@
+User_UART.c:20:6:UART1_Transmit	8	static
+User_UART.c:26:6:LP_UART1_Transmit	8	static
