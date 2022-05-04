@@ -195,7 +195,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 				}
 			}
 
-			if(check_ble_command_response == 1 && Temp_Rx_Char2 == '%')
+			if(check_ble_command_response == 1 && (Temp_Rx_Char2 == '%' || Temp_Rx_Char2 == 'R'))
 			{
 				Rx_Index = 0;
 				flags.check_command_response1 = 1;

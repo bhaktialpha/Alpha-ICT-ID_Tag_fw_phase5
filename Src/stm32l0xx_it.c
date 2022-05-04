@@ -41,7 +41,7 @@
 /* USER CODE BEGIN PD */
 unsigned int Counter_Response_Time = 0;
 unsigned int Ble_Connect_Counter_Response_Time = 0,Second_count=1;
-unsigned int Communication_timeout_counter = 0,Start_vibrator_motor_counter;
+unsigned int Communication_timeout_counter = 0,Start_vibrator_motor_counter=0,Start_ext_counter=0;
 FLG flags;
 UART_HandleTypeDef huart1;
 /* USER CODE END PD */
@@ -260,17 +260,19 @@ void SysTick_Handler(void)
 			Start_vibrator_motor_counter = 0;
 			flags.Start_vibrator_motor_flag = 0;
 			Vibrator_Motor_L;
-//			if(flags.Excecute_alart==1)
-//			{
-//				flags.Excecute_alart=0;
-//				MCU_Mosfet_H;
-//				//MCU_Mosfet2_H;
-//				Ble_Mosfet_H;
-//
-//			}
 		}
 	}
 
+	if(flags.Start_external_interrupt_timeout_flag == 1)
+	{
+		Start_ext_counter++;
+		if(Start_ext_counter >= 500)
+		{
+			Start_ext_counter = 0;
+			flags.Start_external_interrupt_timeout_flag = 0;
+			flags.Tag_Expire_external_interrupt_flag = 0;
+		}
+	}
 
 
 
@@ -312,8 +314,10 @@ void EXTI4_15_IRQHandler(void)
   /* USER CODE BEGIN EXTI4_15_IRQn 0 */
 	 if(__HAL_GPIO_EXTI_GET_FLAG(Button_Status_Pin)){
 		flags.Tag_Expire_external_interrupt_flag = 1;
+		flags.Start_external_interrupt_timeout_flag = 1;
 		//HAL_GPIO_TogglePin(Battery_Indication_LED_Pin, Battery_Indication_LED_GPIO_Port);// toggle LD2 LED
-		 }
+
+	 }
 
   /* USER CODE END EXTI4_15_IRQn 0 */
   HAL_GPIO_EXTI_IRQHandler(RFID_IRQ_Pin);

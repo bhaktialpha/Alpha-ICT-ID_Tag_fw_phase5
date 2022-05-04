@@ -1,4 +1,4 @@
-User_Application.c:43:6:Save_RTC_Value_Application	8	static
-User_Application.c:137:6:Display_Application	16	static
-User_Application.c:321:6:Ckeck_communication_error	16	static
-User_Application.c:367:6:UART1_Display_Application	8	static
+User_Application.c:43:6:Save_RTC_Value_Application	16	static
+User_Application.c:138:6:Display_Application	16	static
+User_Application.c:320:6:Ckeck_communication_error	16	static
+User_Application.c:366:6:UART1_Display_Application	8	static

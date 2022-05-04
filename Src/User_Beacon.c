@@ -157,7 +157,7 @@ void Send_BLE_Commands(void)
 		check_ble_command_response = 2;
 		memset(LPUART1_Receive_Buffer,0,sizeof(LPUART1_Receive_Buffer));
 		LP_UART1_Transmit(BM71_Command_1,3);
-
+		HAL_Delay(100);
 #if(D_DEBUG)
 
 		UART1_Transmit(BM71_Command_1,3);
@@ -207,7 +207,7 @@ void Send_BLE_Commands(void)
 
 			Send_cmd_Error_Cnt++;
 
-			if(Send_cmd_Error_Cnt > 2)
+			if(Send_cmd_Error_Cnt > 5)
 			{
 				Send_Command_State = 0;
 				Send_cmd_Error_Cnt = 0;
@@ -1003,7 +1003,6 @@ void Send_BLE_Beacons_Commands(void)
 #endif
 		flags.Start_Command_Response_time = 1;
 		Counter_Response_Time = 0;
-		HAL_Delay(1000);
 		Send_Command_State++;
 		break;
 	case 1:
@@ -1052,8 +1051,8 @@ void Send_BLE_Beacons_Commands(void)
 		break;
 	case 2:
 		check_ble_command_response = 2;
-		LP_UART1_Transmit(BM71_Command_11,1);
-		HAL_Delay(100);
+//		LP_UART1_Transmit(BM71_Command_11,1);
+//		HAL_Delay(100);
 		LP_UART1_Transmit(BM71_Command_1,3);
 
 #if(D_DEBUG1)
@@ -1513,7 +1512,6 @@ void Send_BLE_Beacons_Commands(void)
 				//				flags.Start_Ble_Connect_timeout_flag = 1;
 				BLEControl_H;
 
-				//HAL_Delay(2000);
 				Send_Command_State++;
 			}
 			else
@@ -1564,7 +1562,7 @@ void Send_BLE_Beacons_Commands(void)
 		//		flags.Start_Ble_wakeup_timeout_flag = 1;
 		Ble_Connect_Counter_Response_Time = 0;
 		flags.Tag_printing_done_flag=1;
-		//check_ble_command_response = 1;
+		HAL_GPIO_WritePin(LCD_Mosfet_GPIO_Port,LCD_Mosfet_Pin,1);
 		break;
 	}
 }

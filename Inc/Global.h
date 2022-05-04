@@ -71,7 +71,7 @@ typedef struct
 	unsigned char Start_vibrator_motor_flag:1;
 	unsigned char Check_battery_voltage_flag:1;
 	unsigned char Check_reapet_battery_voltage_flag:1;
-
+	unsigned char Start_external_interrupt_timeout_flag:1;
 	unsigned char F_Low_Battery_Voltage:1;
 	unsigned char F_full_Battery_Voltage:1;
 	unsigned char F_half_Battery_Voltage :1;

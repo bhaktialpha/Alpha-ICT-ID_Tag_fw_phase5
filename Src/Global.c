@@ -16,6 +16,7 @@
 
 uint32_t Custom_delay;
 
-
+void Init_ADC(void);
+void DeInit_ADC(void);
 unsigned char Send_Command_State;
 

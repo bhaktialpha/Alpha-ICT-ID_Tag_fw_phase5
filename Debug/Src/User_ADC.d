@@ -36,7 +36,8 @@ Src/User_ADC.o: ../Src/User_ADC.c ../Inc/User_Defines.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_uart_ex.h \
  ../Inc/main.h ../Inc/User_ADC.h ../Inc/User_Defines.h \
  ../Inc/User_Application.h ../Inc/Screens.h ../Inc/ED037TC2.h \
- ../Inc/main.h ../Inc/Global.h ../Inc/Buzzer.h ../Inc/rtc.h
+ ../Inc/main.h ../Inc/Global.h ../Inc/Buzzer.h ../Inc/rtc.h \
+ ../Inc/usart.h ../Inc/User_UART.h
 
 ../Inc/User_Defines.h:
 
@@ -129,3 +130,7 @@ Src/User_ADC.o: ../Src/User_ADC.c ../Inc/User_Defines.h \
 ../Inc/Buzzer.h:
 
 ../Inc/rtc.h:
+
+../Inc/usart.h:
+
+../Inc/User_UART.h:

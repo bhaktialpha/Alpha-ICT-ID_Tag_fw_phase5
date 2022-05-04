@@ -1,3 +1,4 @@
 gpio.c:44:6:MX_GPIO_Init	72	static
 gpio.c:134:6:MX_GPIO_Init1	72	static
-gpio.c:223:6:MX_GPIO_DeInit	72	static
+gpio.c:223:6:MX_GPIO_DeInit	80	static
+gpio.c:314:6:MX_GPIO_DeInit1	80	static

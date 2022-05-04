@@ -6,7 +6,9 @@
 #include "ED037TC2.h"
 #include "Buzzer.h"
 #include "rtc.h"
-#define BATTERY_VOLTAGE_LOW_LEVEL1			3.40
+#include "usart.h"
+#include "User_UART.h"
+#define BATTERY_VOLTAGE_LOW_LEVEL1			3.30
 #define BATTERY_VOLTAGE_LOW_LEVEL2			3.50//10%
 //#define BATTERY_FULL_CHARGE					4.10//
 #define BATTERY_HALF_CHARGE			3.70//50%
@@ -81,11 +83,6 @@ void Get_ADC_Value_Converted(unsigned char adc_ch, double *Val_Dest)
 
 int ADC_Sensing_Operation(void)
 {
-	/*F_Unlock_Door = 1 -> When motor is in ON condition
-  F_Check_RFID_tag_Presence = 1 ->  When card is present*/
-
-	//if(F_Unlock_Door == 0)
-	//{
 	ADC_Average[0] = Get_ADC_Average_Single(0);
 
 	Get_ADC_Value_Converted(0,&Battery_Voltage);
@@ -112,7 +109,7 @@ int ADC_Sensing_Operation(void)
 			UART1_Transmit(test_1,23);
 
 #endif
-			HAL_Delay(4000);
+			HAL_Delay(3000);
 			flags.F_Low_Battery_Voltage_Confirmed = 0;
 			//HAL_UART_DeInit(&hlpuart1);
 			MX_GPIO_DeInit();
@@ -128,7 +125,6 @@ int ADC_Sensing_Operation(void)
 			flags.F_Monitor_Low_Battery_Voltage = 1;
 			Monitor_Low_Battery_Voltage_Counter = 0;
 		}
-
 
 		if(flags.F_Low_Battery_Voltage_Confirmed == 1)
 		{
@@ -221,9 +217,14 @@ int ADC_Sensing_Operation(void)
 		}
 		else if(flags.Check_reapet_battery_voltage_flag == 0)
 		{
-			flags.Initialize_ble_flag = 1;
+
+			DeInit_ADC();
+			Ble_Mosfet_L;	 /* BM71 Mosfet control pin */
+			MX_LPUART1_UART_Init();
+			HAL_UART_Receive_IT(&hlpuart1,lpuart_1_Rx_Data,1); 		/* LPUART1 Interrupt call */
 			flags.Battery_status_updated_flag = 0;
 			flags.Check_battery_voltage_flag = 0;
+			flags.Initialize_ble_flag = 1;
 			return SUCCESS;
 		}
 	}

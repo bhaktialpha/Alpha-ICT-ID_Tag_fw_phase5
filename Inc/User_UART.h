@@ -11,6 +11,7 @@
  uint8_t UART_1_Transmit_Buffer[50];
 
  uint8_t  LPUART1_Receive_Buffer[140];
+ extern uint8_t usart_1_Rx_Data[2],lpuart_1_Rx_Data[2];
 
 
 unsigned int Send_cmd_Error_Cnt,Counter_Response_Time;

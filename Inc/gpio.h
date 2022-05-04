@@ -39,7 +39,9 @@ extern "C" {
 void MX_GPIO_Init(void);
 
 /* USER CODE BEGIN Prototypes */
+void MX_GPIO_Init1(void);
 void MX_GPIO_DeInit(void);
+void MX_GPIO_DeInit1(void);
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus

@@ -27,7 +27,7 @@ unsigned long int y,z;
 //unsigned long int pixel_value = 16764,pixel_value_end=35;
 //unsigned long int pixel_value_1 = 16782,pixel_value_end_1=35;
 unsigned int Hours_count = 0;
-unsigned int Min_count = 5;
+unsigned int Min_count = 0;
 unsigned char Test_byte;
 
 //*****************************************************************************
@@ -78,6 +78,7 @@ void Save_RTC_Value_Application(void)
 			LPUART_1_Transmit_Buffer[5] = CRC_Value.CRC_Value_char[0];
 			LPUART_1_Transmit_Buffer[6] = '#';
 			LP_UART1_Transmit(LPUART_1_Transmit_Buffer,7);							/* Received CRC doesn't  with calculated CRC */
+			flags.Shutdown_MCU_mosfet = 1;
 		}
 
 
@@ -104,7 +105,7 @@ void Save_RTC_Value_Application(void)
 			UART_1_Transmit_Buffer[5] = CRC_Value.CRC_Value_char[0];
 			UART_1_Transmit_Buffer[6] = '#';
 			UART1_Transmit(UART_1_Transmit_Buffer,7);							/* Received CRC matched with calculated CRC */
-			flags.Receive_time_frame_done_flag = 1;
+			flags.Receive_time_frame_done_flag = 0;
 		}
 		else
 		{
@@ -118,7 +119,7 @@ void Save_RTC_Value_Application(void)
 			UART_1_Transmit_Buffer[5] = CRC_Value.CRC_Value_char[0];
 			UART_1_Transmit_Buffer[6] = '#';
 			UART1_Transmit(UART_1_Transmit_Buffer,7);							/* Received CRC doesn't  with calculated CRC */
-
+			flags.Shutdown_MCU_mosfet = 1;
 		}
 	}
 	/* Calculate CRC of 16803 bytes in UART_1_Image Buffer */
@@ -172,6 +173,7 @@ void Display_Application(void)
 
 		if(flags.print_display == 1)
 		{
+			HAL_GPIO_WritePin(LCD_Mosfet_GPIO_Port,LCD_Mosfet_Pin,0);
 			flags.Ckeck_communication_error = 0;
 			if(EPD_Init()== SUCCESS)
 			{
@@ -197,15 +199,11 @@ void Display_Application(void)
 				memset(LPUART1_Footer,0,2);
 				memset(LPUART1_CRC,0,2);
 				memset(LPUART_1_Transmit_Buffer,0,15);
-				Initiate_Buzzer_Beep2();					//tune - low, high, low, high - 2
-				Execute_Buzzer_Beep2();
-				Vibrator_Motor_H;
-				flags.Start_vibrator_motor_flag = 1;
 #if(D_DEBUG)
 				uint8_t test_1[30]="E02 - Display Not connected\r\n";
 				UART1_Transmit(test_1,27);
 #endif
-				HAL_Delay(2000);
+
 				flags.Busy_pin_error_flag = 0;				/* Reset display update error flag */
 				//MCU_Mosfet2_H;
 
@@ -275,10 +273,10 @@ void Display_Application(void)
 	}
 	else if(flags.CRC_Verified_Flag == 0)
 	{
-		Initiate_Buzzer_Beep2();					//tune - low, high, low, high - 2
-		Execute_Buzzer_Beep2();
-		Vibrator_Motor_H;
-		flags.Start_vibrator_motor_flag = 1;
+//		Initiate_Buzzer_Beep2();					//tune - low, high, low, high - 2
+//		Execute_Buzzer_Beep2();
+//		Vibrator_Motor_H;
+//		flags.Start_vibrator_motor_flag = 1;
 		LPUART_1_Transmit_Buffer[0] = START_BYTE;
 		LPUART_1_Transmit_Buffer[1] = START_BYTE;
 		strcat(LPUART_1_Transmit_Buffer,MAC_buffer);
@@ -303,6 +301,7 @@ void Display_Application(void)
 		memset(LPUART1_Image_Buffer1,0,sizeof(LPUART1_Image_Buffer1));
 		memset(LPUART1_Footer,0,2);
 		memset(LPUART_1_Transmit_Buffer,0,15);
+		flags.Shutdown_MCU_mosfet = 1;
 	}
 }
 
@@ -380,12 +379,13 @@ void UART1_Display_Application(void)
 
 	if(flags.CRC_Verified_Flag == 1)
 	{
-
-		EPD_Init();          							    /* Initialize display */
-		HAL_Delay(100);
-		//EPD_Display_White();  							/* Clear display before printing image */
-		EPD_Display_KW(LPUART1_Image_Data_Buffer,16800);
-
+		HAL_GPIO_WritePin(LCD_Mosfet_GPIO_Port,LCD_Mosfet_Pin,0);
+		flags.Ckeck_communication_error = 0;
+		if(EPD_Init()== SUCCESS)
+		{
+			EPD_Display_KW(LPUART1_Image_Data_Buffer,16800);
+			//Eink_Partial_Display_Update(232,0,48,40,Screen_battery5);
+		}
 		if(flags.Busy_pin_error_flag == 1) 				    /* Check for display update error error E02*/
 		{
 			UART_1_Transmit_Buffer[0] = START_BYTE;
@@ -399,16 +399,13 @@ void UART1_Display_Application(void)
 			UART_1_Transmit_Buffer[7] = END_BYTE;
 			UART_1_Transmit_Buffer[8] = END_BYTE;
 			UART1_Transmit(UART_1_Transmit_Buffer,9);	/* Send response frame with display error */
-
-			//HAL_Delay(1000);
 			flags.Busy_pin_error_flag = 0;				/* Reset display update error flag */
+			flags.Shutdown_MCU_mosfet = 1;
 		}
 		else
 		{
 
 			flags.Image_USB_Received_Flag = 0;
-			//						Ble_Mosfet_L;
-			//						BLEControl_L;
 			Initiate_Buzzer_Beep1();					//beep 2
 			Execute_Buzzer_Beep1();
 			Vibrator_Motor_H;
@@ -432,32 +429,25 @@ void UART1_Display_Application(void)
 			}
 
 			memset(UART_1_Transmit_Buffer,0,sizeof(UART_1_Transmit_Buffer));
-			//		memset(UART_1_Image_Buffer,0,sizeof(UART_1_Image_Buffer));
 			memset(UART1_Footer,0,2);
 
-
 			if(Hours_count == 0 && Min_count == 0)
-					{
-						flags.Shutdown_MCU_mosfet = 1;
+			{
+				flags.Shutdown_MCU_mosfet = 1;
 
-					}
-					else
-					{
+			}
+			else
+			{
 
-						Send_Command_State = 2;
-						flags.configure_ble_beacons = 1;
-						flags.Ble_connected_flag = 0;
-						flags.Communication_error_flag = 0;
-//						Ble_Mosfet_L;
-//						BLEControl_L;
-						flags.Start_Ble_beacons = 1;
-						//				flags.F_Run_Stop2_Mode = 1;
-						//#if(D_DEBUG)
-						//				uint8_t test_1[35]="Microcontroller in Low power Mode\r\n";
-						//				UART1_Transmit(test_1,35);
-						//#endif
-					}
-					//flags.print_display = 0;
+				Send_Command_State = 2;
+				flags.configure_ble_beacons = 1;
+				flags.Ble_connected_flag = 0;
+				flags.Communication_error_flag = 0;
+				flags.Start_Ble_beacons = 1;
+				flags.Tag_printing_done_flag=1;
+
+			}
+
 		}
 	}
 	else
@@ -475,9 +465,8 @@ void UART1_Display_Application(void)
 
 		UART1_Transmit(UART_1_Transmit_Buffer,9);	/* Send response frame with CRC miss match error */
 		memset(UART_1_Transmit_Buffer,0,sizeof(UART_1_Transmit_Buffer));
-		//	memset(UART_1_Image_Buffer,0,sizeof(UART_1_Image_Buffer));
 		memset(UART1_Footer,0,2);
-
+		flags.Shutdown_MCU_mosfet = 1;
 	}
 
 }
