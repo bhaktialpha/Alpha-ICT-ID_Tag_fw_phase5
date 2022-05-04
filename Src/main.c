@@ -39,7 +39,7 @@ void RTC_TimeShow(uint8_t* showtime);
 //unsigned int test_num;
 extern unsigned char LPUART1_Image_Data_Buffer[16803];
 extern unsigned int Second_count;
-uint8_t FW_Version[20]="ID_TAG_Phase2_V3.7\r\n";
+uint8_t FW_Version[20]="ID_TAG_Phase2_V3.8\r\n";
 uint8_t BLE_Counter[33];
 uint8_t ADC_Counter[16];
 GPIO_PinState Key_status;
