@@ -1484,67 +1484,67 @@ void Send_BLE_Beacons_Commands(void)
 		}
 		break;
 
+//	case 14:
+//
+//		LP_UART1_Transmit(BM71_Command_14,3);
+//#if(D_DEBUG1)
+//		UART1_Transmit(BM71_Command_14,3);
+//#endif
+//		flags.Start_Command_Response_time = 1;
+//		Counter_Response_Time = 0;
+//		Send_Command_State++;
+//		break;
+//
+//	case 15:
+//		if(flags.Data_Received_Flag == 1)
+//		{
+//			flags.Data_Received_Flag = 0;
+//			flags.Start_Command_Response_time = 0;
+//			Counter_Response_Time = 0;
+//			Check_Get_Response(BLE_Response_1,9);
+//			if(flags.Response_OK_flag == 1)
+//			{
+//#if(D_DEBUG1)
+//				UART1_Transmit(Response_string_1,13);
+//#endif
+//				Send_cmd_Error_Cnt = 0;
+//				Ble_Connect_Counter_Response_Time = 0;
+//				//				flags.Start_Ble_Connect_timeout_flag = 1;
+//				BLEControl_H;
+//
+//				Send_Command_State++;
+//			}
+//			else
+//			{
+//				Send_Command_State--;
+//				Send_cmd_Error_Cnt++;
+//
+//				if(Send_cmd_Error_Cnt > 5)
+//				{
+//					Send_Command_State = 0;
+//				}
+//#if(D_DEBUG1)
+//				UART1_Transmit(Response_string_2,19);
+//#endif
+//			}
+//		}
+//		else if(flags.Command_Response_timeout == 1)
+//		{
+//			flags.Command_Response_timeout = 0;
+//			Counter_Response_Time = 0;
+//			Send_Command_State--;
+//			Send_cmd_Error_Cnt++;
+//#if(D_DEBUG1)
+//			UART1_Transmit(Response_string_2,19);
+//#endif
+//			if(Send_cmd_Error_Cnt > 5)
+//			{
+//				Send_Command_State = 0;
+//			}
+//		}
+//		break;
+
 	case 14:
-
-		LP_UART1_Transmit(BM71_Command_14,3);
-#if(D_DEBUG1)
-		UART1_Transmit(BM71_Command_14,3);
-#endif
-		flags.Start_Command_Response_time = 1;
-		Counter_Response_Time = 0;
-		Send_Command_State++;
-		break;
-
-	case 15:
-		if(flags.Data_Received_Flag == 1)
-		{
-			flags.Data_Received_Flag = 0;
-			flags.Start_Command_Response_time = 0;
-			Counter_Response_Time = 0;
-			Check_Get_Response(BLE_Response_1,9);
-			if(flags.Response_OK_flag == 1)
-			{
-#if(D_DEBUG1)
-				UART1_Transmit(Response_string_1,13);
-#endif
-				Send_cmd_Error_Cnt = 0;
-				Ble_Connect_Counter_Response_Time = 0;
-				//				flags.Start_Ble_Connect_timeout_flag = 1;
-				BLEControl_H;
-
-				Send_Command_State++;
-			}
-			else
-			{
-				Send_Command_State--;
-				Send_cmd_Error_Cnt++;
-
-				if(Send_cmd_Error_Cnt > 5)
-				{
-					Send_Command_State = 0;
-				}
-#if(D_DEBUG1)
-				UART1_Transmit(Response_string_2,19);
-#endif
-			}
-		}
-		else if(flags.Command_Response_timeout == 1)
-		{
-			flags.Command_Response_timeout = 0;
-			Counter_Response_Time = 0;
-			Send_Command_State--;
-			Send_cmd_Error_Cnt++;
-#if(D_DEBUG1)
-			UART1_Transmit(Response_string_2,19);
-#endif
-			if(Send_cmd_Error_Cnt > 5)
-			{
-				Send_Command_State = 0;
-			}
-		}
-		break;
-
-	case 16:
 		//		BLEControl_L;
 		//		HAL_Delay(1000);
 		//		BLEControl_H;

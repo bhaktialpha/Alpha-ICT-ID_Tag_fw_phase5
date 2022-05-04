@@ -8,7 +8,7 @@
 #include "rtc.h"
 #include "usart.h"
 #include "User_UART.h"
-#define BATTERY_VOLTAGE_LOW_LEVEL1			3.30
+#define BATTERY_VOLTAGE_LOW_LEVEL1			3.4
 #define BATTERY_VOLTAGE_LOW_LEVEL2			3.50//10%
 //#define BATTERY_FULL_CHARGE					4.10//
 #define BATTERY_HALF_CHARGE			3.70//50%
@@ -105,8 +105,8 @@ int ADC_Sensing_Operation(void)
 			Vibrator_Motor_H;
 			flags.Start_vibrator_motor_flag = 1;
 #if(D_DEBUG1)
-			uint8_t test_1[23]="Low Battery, please charge battery\r\n";
-			UART1_Transmit(test_1,23);
+			uint8_t test_1[36]="Low Battery, please charge battery\r\n";
+			UART1_Transmit(test_1,36);
 
 #endif
 			HAL_Delay(3000);
